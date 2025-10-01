@@ -8,6 +8,8 @@ import {
   Menu,
   MenuItem,
   Typography,
+  Collapse,
+  Button,
 } from "@mui/material";
 import {
   MoreVert as MoreVertIcon,
@@ -20,8 +22,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const Item = ({ item }) => {
   const [anchorEl, setAnchorEl] = useState(false);
-  const { deletePost, setCurrentPost, editPost } = useApp();
-  const navigate = useNavigate()
+  const { deletePost, setCurrentPost } = useApp();
+  const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 600, mb: 2 }}>
       <CardHeader
@@ -56,9 +59,9 @@ const Item = ({ item }) => {
                 Delete Post
               </MenuItem>
               <MenuItem
-                onClick={()=> {
-                  setCurrentPost(item)
-                  navigate("/addpost")
+                onClick={() => {
+                  setCurrentPost(item);
+                  navigate("/addpost");
                 }}
                 sx={{
                   display: "flex",
@@ -85,7 +88,27 @@ const Item = ({ item }) => {
         />
       )}
       <CardContent>
-        <Typography sx={{ color: "text.primary" }}>{item.content}</Typography>
+        <Typography
+          sx={{
+            color: "text.primary",
+            display: "-webkit-box",
+            WebkitLineClamp: expanded ? "unset" : 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {item.content}
+        </Typography>
+        {item.content.length > 300 && (
+          <Typography
+            onClick={() => {
+              setExpanded(!expanded);
+            }}
+            sx={{ cursor: "pointer", color: "custom.info" }}
+          >
+            <b> {expanded ? "See less" : "See more..."}</b>
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );

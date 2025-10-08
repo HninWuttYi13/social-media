@@ -8,9 +8,9 @@ import {
   Menu,
   MenuItem,
   Typography,
-  Collapse,
-  Button,
+  Grid
 } from "@mui/material";
+
 import {
   MoreVert as MoreVertIcon,
   AccountCircle as ProfileIcon,
@@ -79,14 +79,18 @@ const Item = ({ item }) => {
         title={item.name}
         subheader="A few seconds ago"
       />
-      {item.img && (
-        <CardMedia
-          component="img"
-          height={250}
-          image={item.img}
-          sx={{ paddingX: 2 }}
-        />
-      )}
+      {item.imgs &&
+        item.imgs.length > 0 &&
+        item.imgs.map((img, index) => (
+          <CardMedia
+            key={index}
+            component="img"
+            height={250}
+            image={img}
+            sx={{ paddingX: 2, mb: 1 }}
+          />
+        ))}
+
       <CardContent>
         <Typography
           sx={{

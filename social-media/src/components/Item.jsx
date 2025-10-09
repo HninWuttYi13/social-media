@@ -10,6 +10,7 @@ import {
   Typography,
   Grid,
   Box,
+  Divider,
 } from "@mui/material";
 
 import {
@@ -87,7 +88,7 @@ const Item = ({ item }) => {
         <Box sx={{ paddingX: 1, position: "relative" }}>
           {!moreImage ? (
             <Grid container spacing={1}>
-              {item.imgs.slice(0,4).map((img, index) => (
+              {item.imgs.slice(0, 4).map((img, index) => (
                 <Grid
                   key={index}
                   sx={{ cursor: "pointer" }}
@@ -106,9 +107,8 @@ const Item = ({ item }) => {
                     component="img"
                     height={250}
                     image={img}
-                    sx={{ borderRadius: 2, }}
+                    sx={{ borderRadius: 2 }}
                   />
-                  
                 </Grid>
               ))}
               {item.imgs.length > 4 && (
@@ -140,10 +140,17 @@ const Item = ({ item }) => {
                   </Grid>
                 ))}
               </Grid>
-              <ShowLessImageIcon
-                onClick={() => setMoreImage(!moreImage)}
-                sx={{ color: grey[400], fontSize: "30px", cursor: "pointer" }}
-              />
+              <Box sx={{ display: "flex",  justifyContent: "flex-end" }}>
+                <ShowLessImageIcon
+                  onClick={() => setMoreImage(!moreImage)}
+                  sx={{
+                    color: grey[400],
+                    fontSize: 35,
+                    cursor: "pointer",
+                  }}
+                />
+                
+              </Box>
             </>
           )}
         </Box>
@@ -157,6 +164,7 @@ const Item = ({ item }) => {
           />
         )
       )}
+      {moreImage && <Divider/>}
 
       <CardContent>
         <Typography

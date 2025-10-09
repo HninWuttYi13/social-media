@@ -74,7 +74,7 @@ const AppDrawer = () => {
           {auth && (
             <>
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={()=> navigate("/profile/1")}>
                   <ListItemIcon>
                     <ProfileIcon sx={{ color: "text" }} />
                   </ListItemIcon>

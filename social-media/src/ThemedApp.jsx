@@ -6,6 +6,7 @@ import {posts as InitialPosts} from "./data";
 import Template from './Template';
 import Home from "./Pages/Home"
 import AddPost from './Pages/AddPost';
+import Profile from './Pages/Profile';
 const AppContext = createContext();
 export function useApp(){
     return useContext(AppContext);
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
         {
             path: "/addpost",
             element: <AddPost/>
+        },
+        {
+          path: "/profile/:id",
+          element: <Profile/>
         }
     ]
   },

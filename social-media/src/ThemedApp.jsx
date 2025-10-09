@@ -38,7 +38,7 @@ const ThemedApp = () => {
       id: posts[posts.length-1] + 1,
       content,
       name,
-      img: img || null
+      imgs: [...img]
     };
     setPosts([newPost,...posts])
  }

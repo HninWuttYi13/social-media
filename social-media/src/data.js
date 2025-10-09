@@ -7,7 +7,7 @@ export const posts = [
     id: 1,
     content: "Hello, World!",
     name: "Alice",
-    imgs: [Hogwarts, Selena],
+    imgs: [Hogwarts, Selena, Taylor, Jisoo],
   },
   {
     id: 2,

@@ -10,27 +10,31 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApp } from "../ThemedApp";
 import { grey } from "@mui/material/colors";
+
 const AddPost = () => {
   const { addPost, editPost, currentPost } = useApp();
   const navigate = useNavigate();
   const contentRef = useRef();
-  const [image, setImage] = useState([]); // store selected image (preview)
+  const [image, setImage] = useState([]); // store selected images (preview)
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imgUrl = URL.createObjectURL(file); // temporary preview
-      setImage(prev=> [...prev, imgUrl]);
-    }
+    const files = Array.from(e.target.files);
+    const newImages = files.map((file) => URL.createObjectURL(file));
+    setImage((prev) => [...prev, ...newImages]);
   };
-  //deleting image in preview
-  const handleDeleteImage = (imgURL)=> {
-    setImage(prev=> prev.filter(img=> img !== imgURL))
-  }
+
+  const handleDeleteImage = (imgURL) => {
+    setImage((prev) => prev.filter((img) => img !== imgURL));
+  };
+
   useEffect(() => {
     if (currentPost) {
       contentRef.current.value = currentPost.content;
-      setImage([...image, currentPost.img]);
+      if (Array.isArray(currentPost.imgs)) {
+        setImage(currentPost.imgs);
+      } else if (currentPost.imgs) {
+        setImage([currentPost.imgs]);
+      }
     }
   }, [currentPost]);
 
@@ -39,14 +43,16 @@ const AddPost = () => {
     const content = contentRef.current.value;
 
     if (currentPost) {
-      editPost({ ...currentPost, content, img: image });
+      editPost({ ...currentPost, content, imgs: [...image]});
     } else {
+     
       addPost(content, "Alice", image);
+     
     }
-
+    setImage([]);
     e.currentTarget.reset();
-    setImage(null);
-    navigate("/"); // fixed
+   
+    navigate("/");
   };
 
   return (
@@ -55,7 +61,6 @@ const AddPost = () => {
         {/* Post text */}
         <TextField
           inputRef={contentRef}
-          id="outlined-multiline-flexible"
           label="What's on your mind?"
           multiline
           fullWidth
@@ -74,28 +79,30 @@ const AddPost = () => {
             type="file"
             accept="image/*"
             hidden
+            multiple
             onChange={handleFileChange}
           />
         </Button>
 
-        {/* Preview selected image */}
-        <Typography sx={{ textAlign: "start" }}>Preview:</Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {/* Preview selected images */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           {image.map((img) => (
-            <ImageListItem key={img} sx={{ position: "relative" }}>
-              <img src={img}  />
+            <ImageListItem sx={{ position: "relative", marginTop: 3}}>
+              <img src={img} alt="preview" />
               <DeleteImageIcon
                 onClick={() => handleDeleteImage(img)}
                 sx={{
                   position: "absolute",
-                  top: -1,
-                  right: 2,
+                  top: 4,
+                  right: 4,
                   color: grey[400],
+                  cursor: "pointer",
                 }}
               />
             </ImageListItem>
           ))}
         </Box>
+
         <Button variant="contained" type="submit" sx={{ my: 2 }}>
           {currentPost ? "Edit Post" : "Post"}
         </Button>

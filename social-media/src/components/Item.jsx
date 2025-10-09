@@ -8,7 +8,8 @@ import {
   Menu,
   MenuItem,
   Typography,
-  Grid
+  Grid,
+  Box,
 } from "@mui/material";
 
 import {
@@ -16,21 +17,24 @@ import {
   AccountCircle as ProfileIcon,
   Delete as DeleteIcon,
   EditDocument as EditIcon,
+  ExpandLess as ShowLessImageIcon,
 } from "@mui/icons-material";
 import { useApp } from "../ThemedApp";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { grey } from "@mui/material/colors";
 const Item = ({ item }) => {
   const [anchorEl, setAnchorEl] = useState(false);
   const { deletePost, setCurrentPost } = useApp();
   const [expanded, setExpanded] = useState(false);
+  const [moreImage, setMoreImage] = useState(false);
   const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 600, mb: 2 }}>
       <CardHeader
         avatar={
           <IconButton size="large">
-            <Avatar src={item.img || null} />
+            <Avatar src={null} />
           </IconButton>
         }
         action={
@@ -79,17 +83,80 @@ const Item = ({ item }) => {
         title={item.name}
         subheader="A few seconds ago"
       />
-      {item.imgs &&
-        item.imgs.length > 0 &&
-        item.imgs.map((img, index) => (
+      {Array.isArray(item.imgs) && item.imgs.length > 0 ? (
+        <Box sx={{ paddingX: 1, position: "relative" }}>
+          {!moreImage ? (
+            <Grid container spacing={1}>
+              {item.imgs.slice(0,4).map((img, index) => (
+                <Grid
+                  key={index}
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => setMoreImage(!moreImage)}
+                  size={
+                    item.imgs.length === 1
+                      ? 12
+                      : item.imgs.length === 2
+                      ? 6
+                      : item.length === 3
+                      ? 4
+                      : 3
+                  }
+                >
+                  <CardMedia
+                    component="img"
+                    height={250}
+                    image={img}
+                    sx={{ borderRadius: 2, }}
+                  />
+                  
+                </Grid>
+              ))}
+              {item.imgs.length > 4 && (
+                <Typography
+                  onClick={() => setMoreImage(!moreImage)}
+                  sx={{
+                    position: "absolute",
+                    top: "120px",
+                    right: 20,
+                    color: grey[200],
+                  }}
+                  variant="h4"
+                >
+                  +{item.imgs.length - 4}
+                </Typography>
+              )}
+            </Grid>
+          ) : (
+            <>
+              <Grid container rowSpacing={2}>
+                {item.imgs.map((img, index) => (
+                  <Grid key={index} size={12}>
+                    <CardMedia
+                      component="img"
+                      height={250}
+                      image={img}
+                      sx={{ borderRadius: 2 }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+              <ShowLessImageIcon
+                onClick={() => setMoreImage(!moreImage)}
+                sx={{ color: grey[400], fontSize: "30px", cursor: "pointer" }}
+              />
+            </>
+          )}
+        </Box>
+      ) : (
+        item.imgs && (
           <CardMedia
-            key={index}
             component="img"
             height={250}
-            image={img}
+            image={item.imgs}
             sx={{ paddingX: 2, mb: 1 }}
           />
-        ))}
+        )
+      )}
 
       <CardContent>
         <Typography

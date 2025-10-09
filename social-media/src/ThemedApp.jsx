@@ -7,6 +7,7 @@ import Template from './Template';
 import Home from "./Pages/Home"
 import AddPost from './Pages/AddPost';
 import Profile from './Pages/Profile';
+import Register from './Pages/Register';
 const AppContext = createContext();
 export function useApp(){
     return useContext(AppContext);
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         {
           path: "/profile/:id",
           element: <Profile/>
+        },
+        {
+          path: "/register",
+          element: <Register/>
         }
     ]
   },

@@ -94,7 +94,7 @@ const AppDrawer = () => {
           {!auth && (
             <>
               <ListItem>
-                <ListItemButton>
+                <ListItemButton onClick={()=> navigate("/register")}>
                   <ListItemIcon>
                     <RegisterIcon sx={{ color: "text" }} />
                   </ListItemIcon>

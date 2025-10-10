@@ -10,6 +10,7 @@ import Profile from './Pages/Profile';
 import Register from './Pages/Register';
 import Login from "./Pages/Login";
 import Comment from './Pages/Comment';
+import Likes from "./Pages/Likes"
 const AppContext = createContext();
 export function useApp(){
     return useContext(AppContext);
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         {
           path: "/comments/:id",
           element: <Comment/>
+        },
+        {
+          path: "/likes/:id",
+          element: <Likes/>
         }
     ]
   },

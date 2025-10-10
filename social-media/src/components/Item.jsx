@@ -192,7 +192,7 @@ const Item = ({ item }) => {
       <Divider />
       <Grid container>
         <Grid size={6}>
-          <Button fullWidth>Like</Button>
+          <Button onClick={()=> navigate("/likes/1")} fullWidth>Like</Button>
         </Grid>
         <Grid size={6}>
           <Button fullWidth onClick={()=> navigate("/comments/1")}>Comment</Button>

@@ -1,7 +1,7 @@
-const { PrismaClient } = require("@prisma-client");
+const { PrismaClient } = require("@prisma/client");
 const { faker } = require("@faker-js/faker");
 const bcrypt = require("bcrypt")
-const prisma = PrismaClient();
+const prisma = new PrismaClient();
 async function UserSeeder(){
     const password = await bcrypt.hash("password", 10);
     console.log("User seeding is started");

@@ -102,7 +102,11 @@ const AppDrawer = () => {
                 </ListItemButton>
               </ListItem>
               <ListItem>
-                <ListItemButton onClick={() => setAuth(true)}>
+                <ListItemButton onClick={
+                  () => {
+                    setAuth(true);
+                    navigate("/login")
+                    }}>
                   <ListItemIcon>
                     <LoginIcon sx={{ color: "text" }} />
                   </ListItemIcon>

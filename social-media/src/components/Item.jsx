@@ -11,6 +11,7 @@ import {
   Grid,
   Box,
   Divider,
+  Button,
 } from "@mui/material";
 
 import {
@@ -140,7 +141,7 @@ const Item = ({ item }) => {
                   </Grid>
                 ))}
               </Grid>
-              <Box sx={{ display: "flex",  justifyContent: "flex-end" }}>
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <ShowLessImageIcon
                   onClick={() => setMoreImage(!moreImage)}
                   sx={{
@@ -149,7 +150,6 @@ const Item = ({ item }) => {
                     cursor: "pointer",
                   }}
                 />
-                
               </Box>
             </>
           )}
@@ -164,7 +164,7 @@ const Item = ({ item }) => {
           />
         )
       )}
-      {moreImage && <Divider/>}
+      {moreImage && <Divider />}
 
       <CardContent>
         <Typography
@@ -189,6 +189,15 @@ const Item = ({ item }) => {
           </Typography>
         )}
       </CardContent>
+      <Divider />
+      <Grid container>
+        <Grid size={6}>
+          <Button fullWidth>Like</Button>
+        </Grid>
+        <Grid size={6}>
+          <Button fullWidth onClick={()=> navigate("/comments/1")}>Comment</Button>
+        </Grid>
+      </Grid>
     </Card>
   );
 };

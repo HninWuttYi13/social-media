@@ -8,6 +8,8 @@ import Home from "./Pages/Home"
 import AddPost from './Pages/AddPost';
 import Profile from './Pages/Profile';
 import Register from './Pages/Register';
+import Login from "./Pages/Login";
+import Comment from './Pages/Comment';
 const AppContext = createContext();
 export function useApp(){
     return useContext(AppContext);
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
         {
           path: "/register",
           element: <Register/>
+        },
+        {
+          path: "/login",
+          element: <Login/>
+        },
+        {
+          path: "/comments/:id",
+          element: <Comment/>
         }
     ]
   },

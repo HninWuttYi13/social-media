@@ -8,7 +8,7 @@ const Register = () => {
         All fields required
       </Alert>
       <form>
-        <Box sx={{display: "flex", flexDirection: "column", gap: 2}}>
+        <Box sx={{display: "flex", flexDirection: "column", gap: 1}}>
           <TextField placeholder="Name" fullWidth />
           <TextField placeholder="username" fullWidth />
           <TextField placeholder="bio" fullWidth />

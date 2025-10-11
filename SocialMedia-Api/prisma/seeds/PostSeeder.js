@@ -10,7 +10,7 @@ async function PostSeeder(){
         data.push({content, images, userId})
     }
     console.log("Post Seeding is started");
-    prisma.post.createMany({data});
+    await prisma.post.createMany({data});
     console.log("Post Seeding done");
     
    
